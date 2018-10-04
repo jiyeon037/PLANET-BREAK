@@ -18,17 +18,20 @@ public class MonsterSpawnManager : MonoBehaviour {
         float randomY = Random.Range(-20, 13);
 
         int monsterCount = (int)GameObject.FindGameObjectsWithTag("Monster").Length;
+        Debug.Log(monsterCount);
 
         if(monsterCount < monsterMax)
         {
             yield return new WaitForSeconds(createTime);
-
+            Debug.Log("Monster Spawned");
             Instantiate(monster, new Vector3(randomX, randomY, 0f), Quaternion.identity);
         }
         else
         {
-            yield return null;
+            yield return new WaitForSeconds(createTime);
         }
+
+        StartCoroutine("SpawnMonster");
 
     }
     // Update is called once per frame

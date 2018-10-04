@@ -61,19 +61,19 @@ public class Inventory : MonoBehaviour
     public void GetAnItem(int _itemID, int _count = 1)
     {
         // db에 등록된 아이템 리스트만큼 검색
-        for(int i=0; i < theDatabase.itemList.Count; i++) // 데이터베이스 아이템 검색
+        for(int i=0; i < theDatabase.itemList.Count; i++)
         {
             Debug.Log(theDatabase.itemList.Count);
-            if (_itemID == theDatabase.itemList[i].itemID) // 데이터베이스에서 아이템 발견
+            if (_itemID == theDatabase.itemList[i].itemID)
             {
                 Debug.Log(inventoryItemList.Count);
-                for(int j = 0; j < inventoryItemList.Count; j++) // 소지품에 같은 아이템 있는지 확인
+                for(int j = 0; j < inventoryItemList.Count; j++)
                 {
-                    if (inventoryItemList[j].itemID == _itemID) // 이미 갖고있는 아이템이 있다면
+                    if (inventoryItemList[j].itemID == _itemID)
                     {
-                        if(inventoryItemList[j].itemType == Item.ItemType.Use)
+                        if(inventoryItemList[j].itemType == Item.ItemType.Use || inventoryItemList[j].itemType == Item.ItemType.ETC)
                         {
-                            inventoryItemList[i].itemCount += _count; // 개수만 증가
+                            inventoryItemList[i].itemCount += _count;
                         }
                         else
                         {
@@ -82,7 +82,8 @@ public class Inventory : MonoBehaviour
                         return;
                     }
                 }
-                inventoryItemList.Add(theDatabase.itemList[i]); // 소지품에 해당 아이템 추가
+                inventoryItemList.Add(theDatabase.itemList[i]);
+                //inventoryItemList[inventoryItemList.Count - 1].itemCount = _count;
                 return;
             }
         }

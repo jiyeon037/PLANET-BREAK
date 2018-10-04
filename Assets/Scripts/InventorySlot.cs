@@ -16,7 +16,7 @@ public class InventorySlot : MonoBehaviour {
     {
         itemName_Text.text = _item.itemName;
         icon.sprite = _item.itemIcon;
-        if(Item.ItemType.Use == _item.itemType)
+        if(Item.ItemType.Use == _item.itemType || Item.ItemType.ETC == _item.itemType)
         {
             if (_item.itemCount > 0)
                 itemCount_Text.text = "x " + _item.itemCount.ToString();

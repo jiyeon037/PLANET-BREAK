@@ -24,7 +24,12 @@ public class LoadLevel : MonoBehaviour
         if (collision.gameObject.name == "Masi")
         {
             collision.transform.position = new Vector3(posX, posY, 0);
-            SceneManager.LoadScene(levelToLoad);
+            NewMethod();
         }
+    }
+
+    private void NewMethod()
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
 }
