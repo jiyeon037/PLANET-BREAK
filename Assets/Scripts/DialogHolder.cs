@@ -16,7 +16,8 @@ public class DialogHolder : MonoBehaviour
         dMan = FindObjectOfType<DialogManager>();
         dString.Add("Hello!");
         dString.Add("I'm the owner of this land");
-        dString.Add("Nice to meet you");
+        dString.Add("I saw your spaceship crash");
+        dString.Add("If you help me, I'll let you go back to where you lived");
         dString.Add("");
     }
 
@@ -30,7 +31,7 @@ public class DialogHolder : MonoBehaviour
                 dMan.ShowBox(dString[cnt]);
                 cnt++;
 
-                if (cnt > 3)
+                if (cnt > 4)
                 {
                     dMan.dBox.SetActive(false);
                     dMan.dialogActive = false;
