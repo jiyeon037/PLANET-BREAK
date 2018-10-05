@@ -4,30 +4,50 @@ using UnityEngine;
 
 public class DialogHolder : MonoBehaviour
 {
-
+    List<string> dString = new List<string>();
     public string dialogue;
     private DialogManager dMan;
+    bool cBool;
+    int cnt = 0;
 
     // Use this for initialization
     void Start()
     {
         dMan = FindObjectOfType<DialogManager>();
+        dString.Add("Hello!");
+        dString.Add("I'm the owner of this land");
+        dString.Add("Nice to meet you");
+        dString.Add("");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (cBool)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                dMan.ShowBox(dString[cnt]);
+                cnt++;
 
+                if (cnt > 3)
+                {
+                    dMan.dBox.SetActive(false);
+                    dMan.dialogActive = false;
+                    cnt = 0;
+                }
+
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Masi")
         {
-            if (Input.GetKeyUp(KeyCode.Space))
-            {
-                dMan.ShowBox(dialogue);
-            }
+            cBool = true;
+
         }
     }
+
 }

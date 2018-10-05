@@ -12,18 +12,11 @@ public class DialogManager : MonoBehaviour {
 
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         dBox.SetActive(false);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (dialogActive && Input.GetKeyDown(KeyCode.Space))
-        {
-            dBox.SetActive(false);
-            dialogActive = false;
-        }
-	}
+
 
     public void ShowBox(string dialogue)
     {
