@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour {
     protected Animator animator;
     private float directionX = 0;
     private float directionY = 0;
-    public bool walking = false;
+    private bool walking = false;
     public float speed = 5f;
     private static bool playerExists;
     public Vector2 lastMove;
