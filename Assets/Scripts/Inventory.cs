@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 {
     public static Inventory instance;
 
+    private PlayerControl playerCtrl;
     private DatabaseManager theDatabase;
     // private AudioManager theAudio;
     // private OrderManager theOrder;
@@ -43,6 +44,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         instance = this;
+        playerCtrl = FindObjectOfType<PlayerControl>();
         theDatabase = FindObjectOfType<DatabaseManager>();
         // theAudio = FindObjectOfType<AudioManager>();
         // theOrder = FindObjectOfType<OrderManager>();
@@ -115,7 +117,11 @@ public class Inventory : MonoBehaviour
         }
         Description_Text.text = tabDescription[selectedTab];
         StartCoroutine(SelectedTabEffectCoroutine());
-    }   // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0으로 조정
+
+        // ShowItem();
+
+    }
+    // 선택된 탭을 제외하고 다른 모든 탭의 컬러 알파값 0으로 조정
     IEnumerator SelectedTabEffectCoroutine()
     {
         while (tabActivated)
@@ -138,11 +144,11 @@ public class Inventory : MonoBehaviour
         }
     }   // 선택된 탭 반짝임 효과
 
-    public void ShowItem()
+    public void ShowItem()  // 아이템들 보여주는 함수
     {
         inventoryTabList.Clear();
         RemoveSlot();
-        selectedItem = 0;
+        // selectedItem = 0;
 
         switch(selectedTab)
         {
@@ -197,7 +203,18 @@ public class Inventory : MonoBehaviour
             StartCoroutine(SelectedItemEffectCoroutine());
         }
         else
+        {
             Description_Text.text = "해당 타입의 아이템을 소유하고 있지 않습니다.";
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                StopAllCoroutines();
+                itemActivated = false;
+                tabActivated = true;
+                ShowTab();
+            }
+
+
+        }
     }   // 선택된 아이템을 제외하고 다른 모든 탭의 컬러 알파값을 0으로 조정
     IEnumerator SelectedItemEffectCoroutine()
     {
@@ -233,6 +250,7 @@ public class Inventory : MonoBehaviour
                 {
                     //theAudio.Play(open_sound);
                     //theOrder.notMove();
+                    playerCtrl.playerMove = false;
                     go.SetActive(true);
                     selectedTab = 0;
                     tabActivated = true;
@@ -242,6 +260,7 @@ public class Inventory : MonoBehaviour
                 else
                 {
                     //theAudio.Play(cancel_sound);
+                    playerCtrl.playerMove = true;
                     StopAllCoroutines();
                     go.SetActive(false);
                     tabActivated = false;
@@ -254,6 +273,7 @@ public class Inventory : MonoBehaviour
             {
                 if (tabActivated)
                 {
+            
                     if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
                         if (selectedTab < selectedTabImages.Length - 1)
@@ -261,7 +281,20 @@ public class Inventory : MonoBehaviour
                         else
                             selectedTab = 0;
                         //theAudio.Play(key_sound);
+                        StopAllCoroutines();
+                        ShowTab();
                         SelectedTab();
+
+                        Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
+                        color.a = 0.25f;
+                        selectedTabImages[selectedTab].GetComponent<Image>().color = color;
+
+                        itemActivated = false;
+                        tabActivated = true;
+
+                        // ShowItem();
+
+
                     }
                     else if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
@@ -270,9 +303,21 @@ public class Inventory : MonoBehaviour
                         else
                             selectedTab = selectedTabImages.Length - 1;
                         //theAudio.Play(key_sound);
+                        StopAllCoroutines();
+                        ShowTab();
                         SelectedTab();
+
+
+
+                        Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
+                        color.a = 0.25f;
+                        selectedTabImages[selectedTab].GetComponent<Image>().color = color;
+
+                        itemActivated = false;
+                        tabActivated = true;
+
                     }
-                    else if (Input.GetKeyDown(KeyCode.Z))
+                    else if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
                         //theAudio.Play(enter_sound);
                         Color color = selectedTabImages[selectedTab].GetComponent<Image>().color;
@@ -301,12 +346,27 @@ public class Inventory : MonoBehaviour
                         }
                         else if (Input.GetKeyDown(KeyCode.UpArrow))
                         {
+                            if (inventoryTabList.Count == 0)
+                            {
+                                StopAllCoroutines();
+                                itemActivated = false;
+                                tabActivated = true;
+                                ShowTab();
+                            }
+
                             if (selectedItem > 1)
+                            {
                                 selectedItem -= 2;
-                            else
-                                selectedItem = inventoryTabList.Count - 1 - selectedItem;
-                            //theAudio.Play(key_sound);
-                            SelectedItem();
+                                SelectedItem();
+                            }
+                            else  // 빠져나오기
+                            {
+                                StopAllCoroutines();
+                                itemActivated = false;
+                                tabActivated = true;
+                                ShowTab();
+                            }
+
                         }
                         else if (Input.GetKeyDown(KeyCode.RightArrow))
                         {
@@ -344,20 +404,16 @@ public class Inventory : MonoBehaviour
                             }
                         }
                     }
-                    
-                    if (Input.GetKeyDown(KeyCode.X))
+
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
-                        //theAudio.Play(cancel_sound);
                         StopAllCoroutines();
                         itemActivated = false;
                         tabActivated = true;
                         ShowTab();
                     }
+
                 }
-
-                if (Input.GetKeyUp(KeyCode.Z))  // 중복 실행 방지
-                    preventExec = false;
-
             }
         }
     }
