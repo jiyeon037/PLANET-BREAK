@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
+
     protected Animator animator;
     private float directionX = 0;
     private float directionY = 0;
-    private bool walking = false;
+    public bool walking = false;
     public float speed = 5f;
     private static bool playerExists;
     public Vector2 lastMove;
     PolygonCollider2D pc;
     GameObject stick;
 
+    public bool playerMove;
 
     private bool attacking;
     public float attackTime;
@@ -20,7 +22,7 @@ public class PlayerControl : MonoBehaviour {
 
     void Start()
     {
- 
+        playerMove = true;
         stick = transform.GetChild(0).gameObject;
         pc = gameObject.GetComponentInChildren<PolygonCollider2D>();
         animator = GetComponent<Animator>();
@@ -39,7 +41,7 @@ public class PlayerControl : MonoBehaviour {
     void Update()
     {
         
-        if (!attacking)
+        if (!attacking && playerMove)
         {
             if (true)
             {
