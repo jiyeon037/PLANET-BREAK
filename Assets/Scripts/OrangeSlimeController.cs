@@ -8,6 +8,7 @@ public class OrangeSlimeController : MonoBehaviour {
     Animator animator;
     Vector3 movement;
     int movementFlag = 0;   //0:Idle, 1:Left, 2:Right
+    Vector3 moveVelocity = Vector3.zero;
 
     void Start()
     {
@@ -39,7 +40,7 @@ public class OrangeSlimeController : MonoBehaviour {
 
     void Move()
     {
-        Vector3 moveVelocity = Vector3.zero;
+        
 
         if(movementFlag == 1)
         {
@@ -52,4 +53,5 @@ public class OrangeSlimeController : MonoBehaviour {
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
     }
+
 }

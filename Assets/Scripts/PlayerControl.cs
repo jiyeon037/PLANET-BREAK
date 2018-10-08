@@ -77,7 +77,7 @@ public class PlayerControl : MonoBehaviour {
                     transform.Translate(new Vector3(directionX, directionY, 0) * Time.deltaTime * speed);
                     pc.enabled = false;
                 }
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
                 {
                     attackTimeCounter = attackTime;
                     attacking = true;
