@@ -6,6 +6,7 @@ public class SoundMgr : MonoBehaviour {
 
     public AudioClip MusicClip;
     public AudioSource MusicSource;
+    static bool Sound;
 
     private void Awake()
     {
@@ -15,11 +16,14 @@ public class SoundMgr : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (!Sound)
+        {
+            Sound = true;
+            MusicSource.clip = MusicClip;
+            MusicSource.Play();
 
-        MusicSource.clip = MusicClip;
-        MusicSource.Play();
-
-        DontDestroyOnLoad(transform.gameObject);
+            DontDestroyOnLoad(transform.gameObject);
+        }
 
     }
 	

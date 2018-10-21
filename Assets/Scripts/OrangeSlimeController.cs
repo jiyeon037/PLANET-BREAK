@@ -2,17 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrangeSlimeController : MonoBehaviour {
+public class OrangeSlimeController : MonoBehaviour{
     public float movePower = 1f;
 
+    MonsterHealthManager mHealth;
     Animator animator;
     Vector3 movement;
-    int movementFlag = 0;   //0:Idle, 1:Left, 2:Right
     Vector3 moveVelocity = Vector3.zero;
+
+    int movementFlag = 0;   //0:Idle, 1:Left, 2:Right
+    int cHealth;
+    public int ID { get; set; }
 
     void Start()
     {
         animator = gameObject.GetComponentInChildren<Animator>();
+        //ID = 0;
+        mHealth = gameObject.GetComponent<MonsterHealthManager>();
+        
 
         StartCoroutine("ChangeMovement");
     }
@@ -53,5 +60,11 @@ public class OrangeSlimeController : MonoBehaviour {
         }
         transform.position += moveVelocity * movePower * Time.deltaTime;
     }
-
+    /*
+    public void Die()
+    {
+        CombatEvents.EnemyDied(this);
+        Debug.Log("Slime Died");
+    }
+    */
 }

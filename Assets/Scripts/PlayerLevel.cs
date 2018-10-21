@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour {
+public class PlayerLevel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        CombatEvents.OnEnemyDeath += EnemyEx;
 	}
 	
 	// Update is called once per frame
@@ -15,15 +14,12 @@ public class ChangeScene : MonoBehaviour {
 		
 	}
 
-    public void ChangeGameScene()
+    public void EnemyEx(IEnemy enemy)
     {
-        SceneManager.LoadScene("Intro");
+        GrantExperience();
     }
-
-    public void QuitGame()
+    public void GrantExperience()
     {
-        Application.Quit();
+
     }
-
-
 }

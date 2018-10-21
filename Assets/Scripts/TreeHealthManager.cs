@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterHealthManager : MonoBehaviour {
+public class TreeHealthManager : MonoBehaviour {
 
     public int maxHealth;
     public int currentHealth;
     public GameObject item;
     Transform trans;
     GameObject obj;
+    float posX, posY;
 
     // Use this for initialization
     void Start()
     {
         currentHealth = maxHealth;
         trans = GetComponent<Transform>();
-        obj = GetComponent<GameObject>(); 
+        obj = GetComponent<GameObject>();
+        posX = trans.position.x;
+        
+        posY = trans.position.y;
+        
+
     }
 
     // Update is called once per frame
@@ -24,7 +30,7 @@ public class MonsterHealthManager : MonoBehaviour {
         if (currentHealth <= 0)
         {
             StartCoroutine("dropTheItem");
-            
+
         }
 
     }
@@ -32,11 +38,11 @@ public class MonsterHealthManager : MonoBehaviour {
     IEnumerator dropTheItem()
     {
         yield return new WaitForSeconds(0.3f);
-        Instantiate(item, trans.position, Quaternion.identity);
+        Instantiate(item, new Vector3(posX, posY), Quaternion.identity);
         Destroy(gameObject);
     }
 
-    public void HurtMonster(int damage)
+    public void HurtObject(int damage)
     {
         currentHealth -= damage;
     }

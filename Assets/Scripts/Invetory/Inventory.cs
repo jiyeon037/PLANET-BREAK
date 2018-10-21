@@ -8,7 +8,7 @@ public class Inventory : MonoBehaviour
     public static Inventory instance;
 
     private PlayerControl playerCtrl;
-    private DatabaseManager theDatabase;
+    public DatabaseManager theDatabase;
     // private AudioManager theAudio;
     // private OrderManager theOrder;
     //public string key_sound;
@@ -19,8 +19,8 @@ public class Inventory : MonoBehaviour
 
     private InventorySlot[] slots;  // 인벤토리 슬롯들
 
-    private List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
-    private List<Item> inventoryTabList; // 선택한 탭에 따라 다르게 보여질 아이템 리스트
+    public List<Item> inventoryItemList; // 플레이어가 소지한 아이템 리스트
+    public List<Item> inventoryTabList; // 선택한 탭에 따라 다르게 보여질 아이템 리스트
 
     public Text Description_Text; // 부연 설명
     public string[] tabDescription; // 탭 부연설명
@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
     public GameObject go; // 인벤토리 활성화 비활성화
     public GameObject[] selectedTabImages;
 
-    private int selectedItem; // 선택된 아이템
+    public int selectedItem; // 선택된 아이템
     private int selectedTab; // 선택된 탭
 
     private bool activated; // 인벤토리 활성화시 true
@@ -75,7 +75,7 @@ public class Inventory : MonoBehaviour
                     {
                         if(inventoryItemList[j].itemType == Item.ItemType.Use || inventoryItemList[j].itemType == Item.ItemType.ETC)
                         {
-                            inventoryItemList[i].itemCount += _count;
+                            inventoryItemList[j].itemCount += _count;
                         }
                         else
                         {
@@ -215,7 +215,11 @@ public class Inventory : MonoBehaviour
 
 
         }
-    }   // 선택된 아이템을 제외하고 다른 모든 탭의 컬러 알파값을 0으로 조정
+    }
+   
+
+
+    // 선택된 아이템을 제외하고 다른 모든 탭의 컬러 알파값을 0으로 조정
     IEnumerator SelectedItemEffectCoroutine()
     {
         while (itemActivated)
@@ -386,17 +390,52 @@ public class Inventory : MonoBehaviour
                             //theAudio.Play(key_sound);
                             SelectedItem();
                         }
-                        else if (Input.GetKeyDown(KeyCode.Z) && !preventExec)
+                        else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
                         {
                             if (selectedTab == 0)
                             {
                                 //theAudio.Play(enter_sound);
                                 stopKeyInput = true;
-                                // 선택지 호출
+
+                                for (int i = 0; i < inventoryItemList.Count; i++)
+                                {
+                                    if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                                    {
+                                        theDatabase.UseItem(inventoryItemList[i].itemID);
+
+                                        if (inventoryItemList[i].itemCount > 1)
+                                            inventoryItemList[i].itemCount--;
+                                        else
+                                        {
+                                            inventoryItemList.RemoveAt(i);
+                                            Debug.Log("itemList index : " + i);
+                                            Debug.Log("itemd selected : " + selectedItem);
+                                        }
+                                            
+                                    }
+                                    ShowItem();
+                                    break;
+                                }
+                               stopKeyInput = false;
                             }
+
                             else if (selectedTab == 1)
                             {
-                                // 장비 장착
+                                //theAudio.Play(enter_sound);
+                                stopKeyInput = true;
+
+                                for (int i = 0; i < inventoryItemList.Count; i++)
+                                {
+                                    if (inventoryItemList[i].itemID == inventoryTabList[selectedItem].itemID)
+                                    {
+                                        inventoryItemList.RemoveAt(i);
+                                        
+                                    }
+                                    ShowItem();
+                                    break;
+                                }
+                                stopKeyInput = false;
+
                             }
                             else // 비프음 출력
                             {

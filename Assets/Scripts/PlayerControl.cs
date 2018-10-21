@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
+    // public string currentMapName;
+    public string currentSceneName;
+
     protected Animator animator;
     private float directionX = 0;
     private float directionY = 0;
@@ -40,7 +43,17 @@ public class PlayerControl : MonoBehaviour {
     }
     void Update()
     {
-        
+
+        if (Input.GetKeyDown(KeyCode.F5)) 
+        {
+            // 저장
+        }
+
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            // 불러오기
+        }
+
         if (!attacking && playerMove)
         {
             if (true)

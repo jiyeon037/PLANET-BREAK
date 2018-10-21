@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
     public Transform target;
 
+
     
     public float smoothTime = .15f;
 

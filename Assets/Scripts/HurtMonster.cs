@@ -28,5 +28,20 @@ public class HurtMonster : MonoBehaviour {
             clone.GetComponent<FloatingNumbers>().damageNumber = damage;
             clone.transform.position = new Vector2(transform.position.x, transform.position.y);
         }
+        else if (collision.gameObject.tag == "Orange Slime")
+        {
+            collision.gameObject.GetComponent<OrangeSlimeHealthManager>().HurtMonster(damage);
+            Instantiate(damageBurst, hitPoint.position, hitPoint.rotation);
+            var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
+            clone.GetComponent<FloatingNumbers>().damageNumber = damage;
+            clone.transform.position = new Vector2(transform.position.x, transform.position.y);
+        }
+        else if(collision.gameObject.tag == "tree")
+        {
+            collision.gameObject.GetComponent<TreeHealthManager>().HurtObject(damage);
+            var clone = (GameObject)Instantiate(damageNumber, hitPoint.position, Quaternion.Euler(Vector3.zero));
+            clone.GetComponent<FloatingNumbers>().damageNumber = damage;
+            clone.transform.position = new Vector2(transform.position.x, transform.position.y);
+        }
     }
 }

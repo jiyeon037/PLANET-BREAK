@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour {
 
-    public static bool GameIsPaused = false;
+    public static bool activated = true;
 
     public GameObject pauseMenuUI;
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameIsPaused)
+            activated = !activated;
+            if (activated)
             {
                 Resume();
             }
@@ -21,19 +23,18 @@ public class PauseMenu : MonoBehaviour {
             }
         }
 
-        }
-        void Resume()
-        {
-        pauseMenuUI.SetActive(false);
+    }
+    void Resume()
+    {
+        GameObject.Find("PauseMenuCanvas").transform.Find("PauseMenu").gameObject.SetActive(false);
         Time.timeScale = 1f;
-        GameIsPaused = false;
-        }
-        void Pause()
-        {
-        pauseMenuUI.SetActive(true);
+        
+    }
+    void Pause()
+    {
+        GameObject.Find("PauseMenuCanvas").transform.Find("PauseMenu").gameObject.SetActive(true);
         Time.timeScale = 0f;
-        GameIsPaused = true;
-        }
-		
-	}
+        
+    }
+}
 

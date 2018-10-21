@@ -17,13 +17,13 @@ public class MonsterSpawnManager : MonoBehaviour {
         float randomX = Random.Range(-32, 23);
         float randomY = Random.Range(-20, 13);
 
-        int monsterCount = (int)GameObject.FindGameObjectsWithTag("Monster").Length;
-        Debug.Log(monsterCount);
+        int monsterCount = (int)GameObject.FindGameObjectsWithTag("Orange Slime").Length;
+        Debug.Log("Monster Spawned : "+ monsterCount);
 
         if(monsterCount < monsterMax)
         {
             yield return new WaitForSeconds(createTime);
-            Debug.Log("Monster Spawned");
+            
             Instantiate(monster, new Vector3(randomX, randomY, 0f), Quaternion.identity);
         }
         else

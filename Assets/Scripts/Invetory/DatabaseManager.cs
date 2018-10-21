@@ -5,6 +5,7 @@ using UnityEngine;
 public class DatabaseManager : MonoBehaviour {
 
     static public DatabaseManager instance;
+    public PlayerHealthManager playerHealthMgr;
 
     private void Awake()
     {
@@ -26,6 +27,29 @@ public class DatabaseManager : MonoBehaviour {
     public bool[] swiches;
 
     public List<Item> itemList = new List<Item>();
+
+    public void UseItem(int _itemID)
+    {
+        switch (_itemID)
+        {
+            case 10001:
+                Debug.Log("반피 회복");
+                if (playerHealthMgr.playerCurrentHealth <= 25)
+                    playerHealthMgr.playerCurrentHealth += 5;
+
+                break;
+            case 10002:
+                Debug.Log("풀피 회복");
+                break;
+            case 30001:
+                Debug.Log("설계서 조각1");
+                break;
+            case 30002:
+                Debug.Log("설계서 조각2");
+                break;
+
+        }
+    }
     
 
 	// Use this for initialization
@@ -38,7 +62,10 @@ public class DatabaseManager : MonoBehaviour {
         itemList.Add(new Item(30003, "설계서", "우주선 수리를 위한 설계서", Item.ItemType.Quest));
         itemList.Add(new Item(40002, "오렌지슬라임의 젤리", "오렌지슬라임에서 떨어져나온 조각", Item.ItemType.ETC));
         itemList.Add(new Item(40003, "블루슬라임의 젤리", "블루슬라임에서 떨어져나온 조각", Item.ItemType.ETC));
+        itemList.Add(new Item(40004, "통나무", "나무를 해서 얻은 통나무", Item.ItemType.ETC));
 
+        playerHealthMgr = FindObjectOfType<PlayerHealthManager>();
+        int curHealth = playerHealthMgr.playerCurrentHealth;
     }
 	
 }

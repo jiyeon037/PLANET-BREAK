@@ -10,9 +10,11 @@ public class PlayerHealthManager : MonoBehaviour {
     SpriteRenderer spriteRenderer;
     CapsuleCollider2D cCol;
     bool isUnbeatTime = false;
+    public PlayerLevel PlayerLevel { get; set; }
 
 	// Use this for initialization
 	void Start () {
+        PlayerLevel = GetComponent<PlayerLevel>();
         playerCurrentHealth = playerMaxHealth;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         cCol = gameObject.GetComponent<CapsuleCollider2D>();
@@ -23,6 +25,8 @@ public class PlayerHealthManager : MonoBehaviour {
 		if(playerCurrentHealth <= 0)
         {
             gameObject.SetActive(false);
+            GameObject.Find("Game Over Canvas").transform.Find("Panel").gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
 	}
 
