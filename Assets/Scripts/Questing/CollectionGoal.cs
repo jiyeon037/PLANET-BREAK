@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CollectionGoal : Goal {
 
-    public int ItemID { get; set; }
+    //public int ItemID { get; set; }
 
     public CollectionGoal(Quest quest, int itemID, string description, bool completed, int currentAmount, int requiredAmount)
     {
         this.Quest = quest;
-        this.ItemID = itemID;
+        this.ID = itemID;
         this.Description = description;
         this.Completed = completed;
         this.CurrentAmount = currentAmount;
@@ -24,16 +24,14 @@ public class CollectionGoal : Goal {
         Debug.Log("Collection Goal Init");
     }
 
-    public void ItemPickedUp(int ID)
+    public void ItemPickedUp(int iD)
     {
-        if (ID == this.ItemID)
+        if (iD == this.ID)
         {
             Debug.Log("item : " + CurrentAmount);
             this.CurrentAmount++;
             Evaluate();
 
-           
-            
         }
     }
 

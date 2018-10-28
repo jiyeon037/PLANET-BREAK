@@ -9,10 +9,12 @@ public class MonsterHealthManager : MonoBehaviour {
     public GameObject item;
     Transform trans;
     GameObject obj;
+    //Animator animator;
 
     // Use this for initialization
     void Start()
     {
+        //animator = gameObject.GetComponentInChildren<Animator>();
         currentHealth = maxHealth;
         trans = GetComponent<Transform>();
         obj = GetComponent<GameObject>(); 
@@ -23,6 +25,10 @@ public class MonsterHealthManager : MonoBehaviour {
     {
         if (currentHealth <= 0)
         {
+           /* animator.SetBool("isDie", true);
+            animator.SetBool("isStop", false);
+            animator.SetBool("isJump", false);
+            animator.SetBool("isRoll", false);*/
             StartCoroutine("dropTheItem");
             
         }

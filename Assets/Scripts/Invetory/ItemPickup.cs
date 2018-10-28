@@ -9,12 +9,13 @@ public class ItemPickup : MonoBehaviour {
     // public string pickUpSound;
 
     private Inventory inv;
-    public NPC npc;
+    public QuestManager qm;
 
     private void Start()
     {
         inv = FindObjectOfType<Inventory>();
-        npc = FindObjectOfType<NPC>();
+        qm = GameObject.Find("QuestManager").GetComponent<QuestManager>();
+      
     }
 
 
@@ -25,7 +26,7 @@ public class ItemPickup : MonoBehaviour {
             // AudioManager.instance.Play(pickUpSoind);
             inv.GetAnItem(itemID, count);
 
-            if (npc.questStart) {
+            if (qm.AssignedQuest) {
                 UIEventHandler.ItemAdded(itemID);
             }
             Destroy(this.gameObject); // 맵에서 삭제

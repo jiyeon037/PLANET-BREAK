@@ -14,7 +14,7 @@ public class NPC : Interact {
         {
             questStart = true;
         }
-        Debug.Log("@@@questStart is TRUE@@@");
+
         DialogHolder.Instance.AddNewDialogue(dialogue, name);
         Debug.Log("Interacting with NPC.");
     }

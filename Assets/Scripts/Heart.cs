@@ -10,7 +10,7 @@ public class Heart : MonoBehaviour
     public PlayerHealthManager pHealth;
     public GameObject heart1, heart2, heart3;
 
-    int curHealth;
+    public int curHealth;
 
     // Use this for initialization
     void Start()
@@ -18,6 +18,7 @@ public class Heart : MonoBehaviour
         heart1.SetActive(true);
         heart2.SetActive(true);
         heart3.SetActive(true);
+
     }
 
     // Update is called once per frame

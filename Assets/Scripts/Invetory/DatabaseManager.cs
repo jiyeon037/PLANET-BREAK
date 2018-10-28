@@ -57,12 +57,16 @@ public class DatabaseManager : MonoBehaviour {
         itemList.Add(new Item(10001, "빨간 포션", "HP를 50 채워주는 물약", Item.ItemType.Use));
         itemList.Add(new Item(10002, "농축 빨간 포션", "HP를 350 채워주는 물약", Item.ItemType.Use));
         itemList.Add(new Item(20001, "짧은 검", "기본적인 용사의 검", Item.ItemType.Equip));
-        itemList.Add(new Item(30001, "설계서 조각 1", "우주선 수리를 위한 설계서 조각", Item.ItemType.Quest));
-        itemList.Add(new Item(30002, "설계서 조각 2", "우주선 수리를 위한 설계서 조각", Item.ItemType.Quest));
-        itemList.Add(new Item(30003, "설계서", "우주선 수리를 위한 설계서", Item.ItemType.Quest));
+        itemList.Add(new Item(30001, "설계서 조각 1", "우주선 수리를 위한 첫번째 설계서 조각", Item.ItemType.Quest));
+        itemList.Add(new Item(30002, "설계서 조각 2", "우주선 수리를 위한 두번째 설계서 조각", Item.ItemType.Quest));
+        itemList.Add(new Item(30003, "설계서 조각 3", "우주선 수리를 위한 세번째 설계서 조각", Item.ItemType.Quest));
+        itemList.Add(new Item(30004, "설계서 조각 4", "우주선 수리를 위한 네번째 설계서 조각", Item.ItemType.Quest));
+        itemList.Add(new Item(30005, "설계서 조각 5", "우주선 수리를 위한 다섯번째 설계서 조각", Item.ItemType.Quest));
         itemList.Add(new Item(40002, "오렌지슬라임의 젤리", "오렌지슬라임에서 떨어져나온 조각", Item.ItemType.ETC));
         itemList.Add(new Item(40003, "블루슬라임의 젤리", "블루슬라임에서 떨어져나온 조각", Item.ItemType.ETC));
         itemList.Add(new Item(40004, "통나무", "나무를 해서 얻은 통나무", Item.ItemType.ETC));
+        itemList.Add(new Item(40005, "파란 보석", "보석 광맥에서 나온 파란 보석", Item.ItemType.ETC));
+        itemList.Add(new Item(40006, "초록슬라임의 구슬", "초록슬라임의 핵", Item.ItemType.ETC));
 
         playerHealthMgr = FindObjectOfType<PlayerHealthManager>();
         int curHealth = playerHealthMgr.playerCurrentHealth;

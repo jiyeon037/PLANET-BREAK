@@ -12,7 +12,14 @@ public class ContactShipZone : MonoBehaviour {
         if (collision.gameObject.name == "Masi")
         {
             CheckZone = true;
+        }
+    }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name == "Masi")
+        {
+            CheckZone = false;
         }
     }
 

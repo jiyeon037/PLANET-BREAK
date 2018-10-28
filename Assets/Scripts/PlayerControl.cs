@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
-    // public string currentMapName;
+    public string currentMapName;
     public string currentSceneName;
 
     protected Animator animator;
@@ -23,12 +24,15 @@ public class PlayerControl : MonoBehaviour {
     public float attackTime;
     private float attackTimeCounter;
 
+    private SaveNLoad theSaveNLoad;
+
     void Start()
     {
         playerMove = true;
         stick = transform.GetChild(0).gameObject;
         pc = gameObject.GetComponentInChildren<PolygonCollider2D>();
         animator = GetComponent<Animator>();
+        theSaveNLoad = FindObjectOfType<SaveNLoad>();
 
         if (!playerExists)
         {
@@ -43,15 +47,16 @@ public class PlayerControl : MonoBehaviour {
     }
     void Update()
     {
+        currentSceneName = SceneManager.GetActiveScene().name;
 
         if (Input.GetKeyDown(KeyCode.F5)) 
         {
-            // 저장
+            theSaveNLoad.CallSave();
         }
 
         if (Input.GetKeyDown(KeyCode.F9))
         {
-            // 불러오기
+            theSaveNLoad.CallLoad();
         }
 
         if (!attacking && playerMove)

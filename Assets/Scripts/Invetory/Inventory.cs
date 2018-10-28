@@ -51,13 +51,25 @@ public class Inventory : MonoBehaviour
         inventoryItemList = new List<Item>();
         inventoryTabList = new List<Item>();
         slots = tf.GetComponentsInChildren<InventorySlot>();
-        inventoryItemList.Add(new Item(10001, "빨간 포션", "HP를 50 채워주는 물약", Item.ItemType.Use));
-        inventoryItemList.Add(new Item(10002, "농축 빨간 포션", "HP를 350 채워주는 물약", Item.ItemType.Use));
+        inventoryItemList.Add(new Item(10001, "빨간 포션", "HP를 50 채워주는 물약", Item.ItemType.Use, 20));
+//        inventoryItemList.Add(new Item(10002, "농축 빨간 포션", "HP를 350 채워주는 물약", Item.ItemType.Use));
         inventoryItemList.Add(new Item(20001, "짧은 검", "기본적인 용사의 검", Item.ItemType.Equip));
-        inventoryItemList.Add(new Item(30001, "설계서 조각 1", "우주선 수리를 위한 설계서 조각", Item.ItemType.Quest));
-        inventoryItemList.Add(new Item(30002, "설계서 조각 2", "우주선 수리를 위한 설계서 조각", Item.ItemType.Quest));
-        inventoryItemList.Add(new Item(30003, "설계서", "우주선 수리를 위한 설계서", Item.ItemType.Quest));
-        
+        inventoryItemList.Add(new Item(30001, "설계서 조각 1", "우주선 수리를 위한 첫번째 설계서 조각", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30002, "설계서 조각 2", "우주선 수리를 위한 두번째 설계서 조각", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30003, "설계서 조각 3", "우주선 수리를 위한 세번째 설계서 조각", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30004, "설계서 조각 4", "우주선 수리를 위한 네번째 설계서 조각", Item.ItemType.Quest));
+        inventoryItemList.Add(new Item(30005, "설계서 조각 5", "우주선 수리를 위한 다섯번째 설계서 조각", Item.ItemType.Quest));
+
+    }
+
+    public List<Item> SaveItem()
+    {
+        return inventoryItemList;
+    }
+
+    public void LoadItem(List<Item> _itemList)
+    {
+        inventoryItemList = _itemList;
     }
 
     public void GetAnItem(int _itemID, int _count = 1)

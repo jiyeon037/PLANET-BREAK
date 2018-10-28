@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour {
     bool activate = true;
-	// Use this for initialization
-	void Start () {
-		
+    public bool AssignedQuest { get; set; }
+    // Use this for initialization
+    void Start () {
+        AssignedQuest = false;
 	}
 
     // Update is called once per frame

@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class QuestGiver : NPC
 {
-    public bool AssignedQuest { get; set; }
+    public QuestManager qm;
     public bool Helped { get; set; }
     public string[] rewardString;
     public string[] undoneString;
     public string[] doneString;
     public GameObject doneObject;
     public float donePosX, donePosY;
+    public Inventory inv;
+
     Transform trans;
-    CollectionGoal cGoal;
+    Goal goal = new Goal();
 
     [SerializeField]
     private GameObject quests;
@@ -23,21 +25,24 @@ public class QuestGiver : NPC
 
     private void Start()
     {
+        qm = GameObject.Find("QuestManager").GetComponent<QuestManager>();
+
         trans = GetComponent<Transform>();
-        cGoal = (CollectionGoal)new Goal();
+
         donePosX += trans.position.x;
         donePosY += trans.position.y;
     }
 
     public override void Interacts()
     {
-
-        if (!AssignedQuest && !Helped)
+        
+        if (!qm.AssignedQuest && !Helped )
         {
             base.Interacts();
             AssignQuest();
+
         }
-        else if (AssignedQuest && !Helped)
+        else if (qm.AssignedQuest && !Helped )
         {
             CheckQuest();
         }
@@ -49,7 +54,7 @@ public class QuestGiver : NPC
 
     void AssignQuest()
     {
-        AssignedQuest = true;
+        qm.AssignedQuest = true;
         Quest = (Quest)quests.AddComponent(System.Type.GetType(questType));
 
     }
@@ -58,17 +63,24 @@ public class QuestGiver : NPC
     {
         if (Quest.Completed)
         {
+            inv = GameObject.Find("Inventory").GetComponent<Inventory>();
+
+            goal.RemoveItem();
             Quest.GiveReward();
             Helped = true;
-            AssignedQuest = false;
+            qm.AssignedQuest = false;
+
             DialogHolder.Instance.AddNewDialogue(rewardString, name);
 
-            cGoal.RemoveItem();
             Instantiate(doneObject, new Vector3(donePosX, donePosY), Quaternion.identity);
 
         }
         else
         {
+            if (!DialogHolder.Instance)
+            {
+
+            }
             DialogHolder.Instance.AddNewDialogue(undoneString, name);
         }
     }

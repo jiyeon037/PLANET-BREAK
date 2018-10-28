@@ -13,6 +13,7 @@ public class Quest : MonoBehaviour{
     public int ItemCount { get; set; }
     public bool Completed { get; set; }
     public Inventory inv;
+    Goal goal = new Goal();
 
     private void Start()
     {
@@ -21,14 +22,16 @@ public class Quest : MonoBehaviour{
     
     public void CheckGoals()
     {
+        Debug.Log("전  " + goal.ID + "  " + goal.CurrentAmount + " " + goal.RequiredAmount);
         Completed = Goals.All(g => g.Completed);
-        
+        Debug.Log("후  " + goal.ID + "  " + goal.CurrentAmount + " " + goal.RequiredAmount);
+
     }
 
     public void GiveReward()
     {
         Debug.Log("Give Reward");
-        
+
         if (ItemID != 0)
             inv.GetAnItem(ItemID,ItemCount);
     }
