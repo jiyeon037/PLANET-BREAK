@@ -65,7 +65,7 @@ public class UpgradeShip : MonoBehaviour {
 
         if (shipZone.CheckZone)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
 
                 for (int i = 0; i < inv.inventoryItemList.Count; i++)

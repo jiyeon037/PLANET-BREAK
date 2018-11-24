@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class DontDestroyObject : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+
         DontDestroyOnLoad(gameObject);
 	}
 	

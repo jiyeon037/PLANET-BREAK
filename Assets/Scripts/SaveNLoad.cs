@@ -4,6 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SaveNLoad : MonoBehaviour {
 
@@ -14,13 +15,16 @@ public class SaveNLoad : MonoBehaviour {
         public float playerY;
         public float playerZ;
 
-//        public string mapName;
         public string sceneName;
+
+//        public bool questStatus;
 
         public int shipLV;
         public int playerHP;
         public List<int> playerItemInventory;
         public List<int> playerItemInventoryCount;
+
+        public int noteStatus;
         
     }
 
@@ -30,28 +34,42 @@ public class SaveNLoad : MonoBehaviour {
     private UpgradeShip theShip;
     private Heart theHeart;
     private PlayerHealthManager theHealthMgr;
+    private RemainControl theRemainCtrl;
+    //private QuestGiver theQuestGiver;
+    //private Quest theQuest;
 
     public Data data;
 
     public Vector3 vector;
 
+    public GameObject floatingText;
+    public bool textCheck;
+
     public void CallSave()
     {
+        textCheck = true;
+
+        //floatingText = GameObject.Find("Canvas/FloatingText");
         theDatabase = FindObjectOfType<DatabaseManager>();
         thePlayer = FindObjectOfType<PlayerControl>();
         theInven = FindObjectOfType<Inventory>();
         theShip = FindObjectOfType<UpgradeShip>();
         theHeart = FindObjectOfType<Heart>();
         theHealthMgr = FindObjectOfType<PlayerHealthManager>();
+        //theQuestGiver = FindObjectOfType<QuestGiver>();
+        //theQuest = FindObjectOfType<Quest>();
+        theRemainCtrl = FindObjectOfType<RemainControl>();
 
         data.playerX = thePlayer.transform.position.x;
         data.playerY = thePlayer.transform.position.y;
         data.playerZ = thePlayer.transform.position.z;
 
-        //  data.mapName = thePlayer.currentMapName;
         data.sceneName = thePlayer.currentSceneName;
-        Debug.Log( " @@@ " + thePlayer.currentSceneName);
-        Debug.Log( " @@@ " + SceneManager.GetActiveScene().name);
+        Debug.Log(" @@@ " + thePlayer.currentSceneName);
+        Debug.Log(" @@@ " + data.sceneName);
+
+        //data.questStatus = theQuest.Completed;
+        //Debug.Log(" @@@@ " + data.questStatus + theQuest.Completed);
 
         data.shipLV = theShip.shipCnt;
         data.playerHP = theHealthMgr.playerCurrentHealth;
@@ -77,6 +95,9 @@ public class SaveNLoad : MonoBehaviour {
 
         Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
 
+        floatingText.gameObject.SetActive(true);
+        StartCoroutine(func());
+
     }
 
     public void CallLoad()
@@ -95,13 +116,18 @@ public class SaveNLoad : MonoBehaviour {
             theInven = FindObjectOfType<Inventory>();
             theShip = FindObjectOfType<UpgradeShip>();
             theHealthMgr = FindObjectOfType<PlayerHealthManager>();
+            //theQuestGiver = FindObjectOfType<QuestGiver>();
+            //theQuest = FindObjectOfType<Quest>();
+            theRemainCtrl = FindObjectOfType<RemainControl>();
 
-//            thePlayer.currentMapName = data.mapName;
             thePlayer.currentSceneName = data.sceneName;
             Debug.Log("@@@ " + thePlayer.currentSceneName);
 
             vector.Set(data.playerX, data.playerY, data.playerZ);
             thePlayer.transform.position = vector;
+
+            //theQuest.Completed = data.questStatus;
+            //Debug.Log("@@@@@ " + data.questStatus);
 
             theHealthMgr.playerCurrentHealth = data.playerHP;
             theShip.shipCnt = data.shipLV;
@@ -130,7 +156,7 @@ public class SaveNLoad : MonoBehaviour {
             GameManager theGM = FindObjectOfType<GameManager>();
             theGM.LoadStart();
 
-            SceneManager.LoadScene(data.sceneName);
+            SceneManager.LoadScene(data.sceneName);   // 씬을 새로 로드하면 정보 사라짐.. 원래 문제랑 같은 원리인듯
 
         } else
         {
@@ -139,5 +165,24 @@ public class SaveNLoad : MonoBehaviour {
 
         file.Close();
 
+    }
+
+    void Start()
+    {
+        floatingText = GameObject.Find("Canvas/FloatingText");
+        floatingText.gameObject.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (textCheck == true)
+            StartCoroutine(func());
+    }
+
+    IEnumerator func()
+    {
+        yield return new WaitForSeconds(2.0f);
+        floatingText.gameObject.SetActive(false);
+        this.textCheck = false;
     }
 }

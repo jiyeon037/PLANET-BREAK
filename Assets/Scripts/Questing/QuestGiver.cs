@@ -14,8 +14,8 @@ public class QuestGiver : NPC
     public Inventory inv;
 
     Transform trans;
-    Goal goal = new Goal();
 
+    private Goal Goal { get; set; }
     [SerializeField]
     private GameObject quests;
 
@@ -26,7 +26,7 @@ public class QuestGiver : NPC
     private void Start()
     {
         qm = GameObject.Find("QuestManager").GetComponent<QuestManager>();
-
+        
         trans = GetComponent<Transform>();
 
         donePosX += trans.position.x;
@@ -65,7 +65,7 @@ public class QuestGiver : NPC
         {
             inv = GameObject.Find("Inventory").GetComponent<Inventory>();
 
-            goal.RemoveItem();
+            //goal.RemoveItem();
             Quest.GiveReward();
             Helped = true;
             qm.AssignedQuest = false;

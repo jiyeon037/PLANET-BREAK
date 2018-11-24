@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DatabaseManager : MonoBehaviour {
 
     static public DatabaseManager instance;
     public PlayerHealthManager playerHealthMgr;
+    public Heart theHeart;
 
     private void Awake()
     {
@@ -40,6 +42,14 @@ public class DatabaseManager : MonoBehaviour {
                 break;
             case 10002:
                 Debug.Log("풀피 회복");
+                playerHealthMgr.playerCurrentHealth = 30;
+                theHeart.heart1.SetActive(true);
+                theHeart.heart2.SetActive(true);
+                theHeart.heart3.SetActive(true);
+
+                theHeart.heart1.GetComponent<Image>().sprite = theHeart.fullHeart;
+                theHeart.heart2.GetComponent<Image>().sprite = theHeart.fullHeart;
+                theHeart.heart3.GetComponent<Image>().sprite = theHeart.fullHeart;
                 break;
             case 30001:
                 Debug.Log("설계서 조각1");
@@ -54,8 +64,8 @@ public class DatabaseManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        itemList.Add(new Item(10001, "빨간 포션", "HP를 50 채워주는 물약", Item.ItemType.Use));
-        itemList.Add(new Item(10002, "농축 빨간 포션", "HP를 350 채워주는 물약", Item.ItemType.Use));
+        itemList.Add(new Item(10001, "빨간 포션", "HP를 5 채워주는 물약", Item.ItemType.Use));
+        itemList.Add(new Item(10002, "농축 빨간 포션", "HP를 모두 채워주는 강력한 물약", Item.ItemType.Use));
         itemList.Add(new Item(20001, "짧은 검", "기본적인 용사의 검", Item.ItemType.Equip));
         itemList.Add(new Item(30001, "설계서 조각 1", "우주선 수리를 위한 첫번째 설계서 조각", Item.ItemType.Quest));
         itemList.Add(new Item(30002, "설계서 조각 2", "우주선 수리를 위한 두번째 설계서 조각", Item.ItemType.Quest));
@@ -70,6 +80,7 @@ public class DatabaseManager : MonoBehaviour {
 
         playerHealthMgr = FindObjectOfType<PlayerHealthManager>();
         int curHealth = playerHealthMgr.playerCurrentHealth;
+        theHeart = FindObjectOfType<Heart>();
     }
 	
 }

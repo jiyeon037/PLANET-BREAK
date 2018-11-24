@@ -30,25 +30,23 @@ public class Goal
     public void Complete()
     {
         Debug.Log("컴플릿" + this.ID + "  " + CurrentAmount + " " + RequiredAmount);
-        Completed = true; //////////////////
-        Debug.Log("컴플릿 후" + this.ID + "  " + CurrentAmount + " " + RequiredAmount);
+        Completed = true;
+       // RemoveItem();
         Quest.CheckGoals();
-        Debug.Log("컴플릿 후후" + this.ID + "  " + CurrentAmount + " " + RequiredAmount);
         Debug.Log("Goal completed.");
     }
 
     public void RemoveItem()
     {
+        Debug.Log("리무브 아이템 " + RequiredAmount);
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
 
         for (int i = 0; i < inv.inventoryItemList.Count; i++)
         {
-            Debug.Log(inv.inventoryItemList[i].itemID + "  " + this.ID + "  " + CurrentAmount + " " + RequiredAmount);
             if (inv.inventoryItemList[i].itemID == this.ID)  // 템 찾으면
             {
-                Debug.Log("33333333333333");
                 for (int j = 0; j < RequiredAmount; j++) {
-                    Debug.Log("444444444444444");
+
                     if (inv.inventoryItemList[i].itemCount > RequiredAmount)
                         inv.inventoryItemList[i].itemCount -= RequiredAmount;
                     else

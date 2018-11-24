@@ -44,7 +44,7 @@ public class EndingButton : MonoBehaviour {
     }
     // Use this for initialization
     void Start () {
-		
+        dialog.SetActive(false);
 	}
 	
 	// Update is called once per frame

@@ -31,8 +31,8 @@ public class Quest : MonoBehaviour{
     public void GiveReward()
     {
         Debug.Log("Give Reward");
-
-        if (ItemID != 0)
+        goal.RemoveItem();
+        if (ItemID != 0) 
             inv.GetAnItem(ItemID,ItemCount);
     }
     
